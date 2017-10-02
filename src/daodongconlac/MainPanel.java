@@ -41,9 +41,10 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         LoadImage();
-        
+
         isRotated = false;
         angle0 = 10;
+        angle = 0;
 
         T = 2.150;
         omega = 2 * Math.PI / T;
@@ -67,7 +68,12 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         setBackground(Color.white);
         Graphics2D g = (Graphics2D) gg;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.drawImage(rotate(imgConLac, angle, 200, 92), 0,50, null);
+        if (Properties.isRotated) {
+            g.drawImage(rotate(rotate180(imgConLac), angle, 200, 92), 0, 50, null);
+        } else {
+            g.drawImage(rotate(imgConLac, angle, 200, 92), 0, 50, null);
+        }
+
     }
 
     public static BufferedImage rotate(BufferedImage bufferedImage, double angle, int x, int y) {
@@ -76,6 +82,15 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         bufferedImage = op.filter(bufferedImage, null);
         return bufferedImage;
+    }
+
+    public static BufferedImage rotate180(BufferedImage bufferedImage) {
+        AffineTransform tx = new AffineTransform();
+        tx.rotate(Math.toRadians(180), bufferedImage.getWidth() / 2, bufferedImage.getHeight() / 2);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+        bufferedImage = op.filter(bufferedImage, null);
+        return bufferedImage;
+
     }
 
     void LoadImage() {
@@ -88,8 +103,15 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         }
     }
 
+    public void Stop() {
+        timerConLac.stop();
+        angle = 0;
+        repaint();
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
+
         timerConLac.start();
     }
 

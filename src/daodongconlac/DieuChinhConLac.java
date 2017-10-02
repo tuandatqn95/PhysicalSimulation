@@ -10,7 +10,7 @@ package daodongconlac;
  * @author tuand
  */
 public class DieuChinhConLac extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form DieuChinhConLac
      */
@@ -59,6 +59,11 @@ public class DieuChinhConLac extends javax.swing.JFrame {
         );
 
         btnOk.setText("OK");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Hủy");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -130,13 +135,18 @@ public class DieuChinhConLac extends javax.swing.JFrame {
 
     private void JSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JSliderStateChanged
         lbSliderValue.setText(String.valueOf(JSlider.getValue()) + " mm");
-        CustomizePanel.l = (int)(JSlider.getValue() * 0.4);
+        CustomizePanel.length = (int) (JSlider.getValue() * 0.4);
         jPanel1.repaint();
     }//GEN-LAST:event_JSliderStateChanged
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.hide();        // TODO add your handling code here:
+        this.dispose();     // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        Properties.LBuLong = JSlider.getValue();
+        this.dispose();
+    }//GEN-LAST:event_btnOkActionPerformed
 
     /**
      * @param args the command line arguments

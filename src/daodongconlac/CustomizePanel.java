@@ -27,13 +27,13 @@ public final class CustomizePanel extends JPanel implements MouseListener, Mouse
 
     BufferedImage imgConLac, imgRen;
 
-    public static int l;
+    public static int length;
 
     public CustomizePanel() {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
-        l = (int) Properties.LBuLong;
+        length = (int) Properties.LBuLong;
 
         LoadImage();
     }
@@ -45,7 +45,7 @@ public final class CustomizePanel extends JPanel implements MouseListener, Mouse
         Graphics2D g = (Graphics2D) gg;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.drawImage(imgConLac, 50, 40, null);
-        g.drawImage(imgRen, 520 + l, 39, null);
+        g.drawImage(imgRen, 520 + length, 39, null);
     }
 
     void LoadImage() {
@@ -58,6 +58,8 @@ public final class CustomizePanel extends JPanel implements MouseListener, Mouse
             System.out.println(e.getMessage());
         }
     }
+    
+   
 
     @Override
     public void mouseClicked(MouseEvent e) {
