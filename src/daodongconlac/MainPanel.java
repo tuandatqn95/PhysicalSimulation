@@ -28,7 +28,7 @@ import javax.swing.Timer;
  */
 public final class MainPanel extends JPanel implements MouseListener, MouseMotionListener {
 
-    BufferedImage imgConLac;
+    BufferedImage imgConLac, imgRen, imgObject;
 
     double T;
     Timer timerConLac;
@@ -37,11 +37,14 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     int intervalConLac;
     boolean isRotated;
 
+    int mouseX, mouseY, mouseX_dragged, mouseY_dragged;
+    boolean mouseDragged;
+
     public MainPanel() {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         LoadImage();
-
+        LoadImageChanged();
         isRotated = false;
         angle0 = 10;
         angle = 0;
@@ -69,9 +72,9 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         Graphics2D g = (Graphics2D) gg;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         if (Properties.isRotated) {
-            g.drawImage(rotate(rotate180(imgConLac), angle, 200, 92), 0, 50, null);
+            g.drawImage(rotate(rotate180(imgObject), angle, 200, 92), 0, 50, null);
         } else {
-            g.drawImage(rotate(imgConLac, angle, 200, 92), 0, 50, null);
+            g.drawImage(rotate(imgObject, angle, 200, 92), 0, 50, null);
         }
 
     }
@@ -93,14 +96,28 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
     }
 
+    public static BufferedImage mergeImage(BufferedImage image1, BufferedImage image2, int length) {
+        int width = image1.getWidth();
+        int height = image1.getHeight();
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = bufferedImage.createGraphics();
+        g2.drawImage(image1, null, 0, 0);
+        g2.drawImage(image2, null, 183, 508 + length);
+        return bufferedImage;
+    }
+
     void LoadImage() {
         //Lay anh con lac
         try {
-            File input = new File(Properties.pathConLac);
-            imgConLac = ImageIO.read(input);
+            imgConLac = ImageIO.read(new File(Properties.pathConLac));
+            imgRen = ImageIO.read(new File(Properties.pathRenDung));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    void LoadImageChanged() {
+        imgObject = mergeImage(imgConLac, imgRen, (int) (Properties.LBuLong * 0.4));
     }
 
     public void Stop() {
@@ -112,16 +129,23 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        timerConLac.start();
+//        timerConLac.start();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
 
+        mouseX = e.getX();
+        mouseY = e.getY();
+        mouseDragged = false;
+        System.out.println(mouseX + ":" + mouseY);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (mouseDragged) {
+            timerConLac.start();
+        }
     }
 
     @Override
@@ -134,6 +158,18 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        if (mouseX > 187 && mouseX < 213 && mouseY > 145 && mouseY < 590) {
+            mouseX_dragged = e.getX();
+            mouseY_dragged = e.getY();
+            mouseDragged = true;
+            double aaa = (200 - mouseX_dragged) / Math.sqrt((200 - mouseX_dragged) * (200 - mouseX_dragged)
+                    + (92 - mouseY_dragged) * (92 - mouseY_dragged));
+            angle = Math.toDegrees(aaa);
+            angle0 = angle;
+
+            repaint();
+            
+        }
     }
 
     @Override
