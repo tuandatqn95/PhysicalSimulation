@@ -28,7 +28,7 @@ import javax.swing.Timer;
  */
 public final class MainPanel extends JPanel implements MouseListener, MouseMotionListener {
 
-    BufferedImage imgConLac, imgRen, imgObject;
+    BufferedImage imgConLac, imgRen, imgObject, imgKhung;
 
     double T;
     Timer timerConLac;
@@ -49,7 +49,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         angle0 = 10;
         angle = 0;
 
-        T = 2.150;
+        T = 1.150;
         omega = 2 * Math.PI / T;
 
         t = 0;
@@ -71,10 +71,11 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         setBackground(Color.white);
         Graphics2D g = (Graphics2D) gg;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.drawImage(imgKhung, 45, 100, null);
         if (Properties.isRotated) {
-            g.drawImage(rotate(rotate180(imgObject), angle, 200, 92), 0, 50, null);
+            g.drawImage(rotate(rotate180(imgObject), angle, 200, 92), 0, 20, null);
         } else {
-            g.drawImage(rotate(imgObject, angle, 200, 92), 0, 50, null);
+            g.drawImage(rotate(imgObject, angle, 200, 92), 0, 20, null);
         }
 
     }
@@ -111,6 +112,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         try {
             imgConLac = ImageIO.read(new File(Properties.pathConLac));
             imgRen = ImageIO.read(new File(Properties.pathRenDung));
+            imgKhung = ImageIO.read(new File(Properties.pathKhung));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -168,7 +170,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             angle0 = angle;
 
             repaint();
-            
+
         }
     }
 
