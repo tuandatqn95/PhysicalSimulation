@@ -145,6 +145,9 @@ public class DieuChinhConLac extends javax.swing.JFrame {
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         Properties.LBuLong = JSlider.getValue();
+        if(this.mListener!=null){
+            this.mListener.OnFrameSubmit();
+        }
         this.dispose();
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -182,6 +185,10 @@ public class DieuChinhConLac extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void setOnFrameSubmitListener(OnFrameSubmitListener listener){
+        this.mListener = listener;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSlider JSlider;
@@ -193,4 +200,6 @@ public class DieuChinhConLac extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioConLacThuan;
     private javax.swing.ButtonGroup radioGroup;
     // End of variables declaration//GEN-END:variables
+    private OnFrameSubmitListener mListener;
+
 }

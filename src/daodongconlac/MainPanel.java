@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -19,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -31,7 +33,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     BufferedImage imgConLac, imgRen, imgObject, imgKhung;
 
     double T;
-    Timer timerConLac;
+    public Timer timerConLac;
     double angle, angle0, omega;
     double dt, t;
     int intervalConLac;
@@ -43,6 +45,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     public MainPanel() {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+
         LoadImage();
         LoadImageChanged();
         isRotated = false;
@@ -118,7 +121,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         }
     }
 
-    void LoadImageChanged() {
+    public void LoadImageChanged() {
         imgObject = mergeImage(imgConLac, imgRen, (int) (Properties.LBuLong * 0.4));
     }
 
@@ -167,16 +170,37 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             double aaa = (200 - mouseX_dragged) / Math.sqrt((200 - mouseX_dragged) * (200 - mouseX_dragged)
                     + (92 - mouseY_dragged) * (92 - mouseY_dragged));
             angle = Math.toDegrees(aaa);
+            if (angle > 9) {
+                angle = 9;
+            }
+            if (angle < -9) {
+                angle = -9;
+            }
             angle0 = angle;
 
             repaint();
-
+            System.out.println(angle);
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
 
+    }
+
+    void btnSwitch_Click() {
+
+    }
+
+    void btnCustomize_Click() {
+        DieuChinhConLac frameCustomize = new DieuChinhConLac();
+        frameCustomize.setVisible(true);
+        frameCustomize.setOnFrameSubmitListener(new OnFrameSubmitListener() {
+            @Override
+            public void OnFrameSubmit() {
+                Stop();
+            }
+        });
     }
 
 }
