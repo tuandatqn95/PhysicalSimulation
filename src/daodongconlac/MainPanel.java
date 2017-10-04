@@ -28,19 +28,24 @@ import javax.swing.Timer;
  *
  * @author tuand
  */
-public final class MainPanel extends JPanel implements MouseListener, MouseMotionListener {
+public final class MainPanel extends JPanel implements MouseListener, MouseMotionListener, OnFrameSubmitListener {
 
     BufferedImage imgConLac, imgRen, imgObject, imgKhung;
 
     double T;
-    public Timer timerConLac;
-    double angle, angle0, omega;
+    Timer timerConLac;
+    double angle, angle0, oldAngle, gamma, omega;
     double dt, t;
     int intervalConLac;
-    boolean isRotated;
+    boolean isRotated, isRunning;
 
     int mouseX, mouseY, mouseX_dragged, mouseY_dragged;
     boolean mouseDragged;
+
+    int N;
+    double time;
+
+    OnFrameSubmitListener mListener;
 
     public MainPanel() {
         this.addMouseListener(this);
@@ -49,21 +54,31 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         LoadImage();
         LoadImageChanged();
         isRotated = false;
+        isRunning = false;
         angle0 = 10;
         angle = 0;
 
         T = 1.150;
         omega = 2 * Math.PI / T;
+        gamma = 0.005;
 
         t = 0;
         dt = 0.01;
         intervalConLac = (int) (1000 * dt);
 
+        N = 0;
+        time = 0.0;
+
         //Timer
         timerConLac = new Timer(intervalConLac, (ActionEvent e) -> {
             t += dt;
-            angle = angle0 * Math.cos(omega * t);
+            oldAngle = angle;
+            angle = angle0 * Math.pow(Math.E, -gamma * t) * Math.cos(omega * t);
+            if (oldAngle > 7.5 && angle <= 7.5) {
+                N++;
+            }
             repaint();
+
         });
 
     }
@@ -71,7 +86,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     @Override
     public void paintComponent(Graphics gg) {
         super.paintComponent(gg);
-        setBackground(Color.white);
+        setBackground(Properties.colorBackground);
         Graphics2D g = (Graphics2D) gg;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.drawImage(imgKhung, 45, 100, null);
@@ -125,31 +140,38 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         imgObject = mergeImage(imgConLac, imgRen, (int) (Properties.LBuLong * 0.4));
     }
 
+    public void Start() {
+        timerConLac.start();
+        isRunning = true;
+        if (this.mListener != null) {
+            this.mListener.OnFrameSubmit();
+        }
+    }
+
     public void Stop() {
         timerConLac.stop();
+        isRunning = false;
         angle = 0;
+        t = 0;
         repaint();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
 
-//        timerConLac.start();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
         mouseX = e.getX();
         mouseY = e.getY();
         mouseDragged = false;
-        System.out.println(mouseX + ":" + mouseY);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         if (mouseDragged) {
-            timerConLac.start();
+            Start();
         }
     }
 
@@ -163,6 +185,9 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        if (isRunning) {
+            return;
+        }
         if (mouseX > 187 && mouseX < 213 && mouseY > 145 && mouseY < 590) {
             mouseX_dragged = e.getX();
             mouseY_dragged = e.getY();
@@ -177,9 +202,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
                 angle = -9;
             }
             angle0 = angle;
-
             repaint();
-            System.out.println(angle);
         }
     }
 
@@ -188,19 +211,13 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
     }
 
-    void btnSwitch_Click() {
-
+    @Override
+    public void OnFrameSubmit() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    void btnCustomize_Click() {
-        DieuChinhConLac frameCustomize = new DieuChinhConLac();
-        frameCustomize.setVisible(true);
-        frameCustomize.setOnFrameSubmitListener(new OnFrameSubmitListener() {
-            @Override
-            public void OnFrameSubmit() {
-                Stop();
-            }
-        });
+    public void setOnFrameSubmitListener(OnFrameSubmitListener listener) {
+        this.mListener = listener;
     }
 
 }

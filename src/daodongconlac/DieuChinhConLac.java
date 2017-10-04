@@ -16,8 +16,7 @@ public class DieuChinhConLac extends javax.swing.JFrame {
      */
     public DieuChinhConLac() {
         initComponents();
-        radioGroup.add(radioConLacThuan);
-        radioGroup.add(radioConLacNghich);
+  
         JSlider.setValue((int) Properties.LBuLong);
         lbSliderValue.setText(String.valueOf(JSlider.getValue()) + " mm");
     }
@@ -31,15 +30,12 @@ public class DieuChinhConLac extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        radioGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel1 = new CustomizePanel();
         btnOk = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         JSlider = new javax.swing.JSlider();
         lbSliderValue = new javax.swing.JLabel();
-        radioConLacThuan = new javax.swing.JRadioButton();
-        radioConLacNghich = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Điều chỉnh con lắc");
@@ -82,26 +78,18 @@ public class DieuChinhConLac extends javax.swing.JFrame {
 
         lbSliderValue.setText("0 mm");
 
-        radioConLacThuan.setText("Con Lắc Thuận");
-
-        radioConLacNghich.setText("Con Lắc Nghịch");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(41, 271, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(radioConLacThuan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(JSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(65, 65, 65))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(radioConLacNghich)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lbSliderValue)
                         .addGap(147, 147, 147))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -116,14 +104,10 @@ public class DieuChinhConLac extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(radioConLacThuan))
+                .addComponent(JSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radioConLacNghich)
-                    .addComponent(lbSliderValue))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(lbSliderValue)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnOk))
@@ -196,9 +180,6 @@ public class DieuChinhConLac extends javax.swing.JFrame {
     private javax.swing.JButton btnOk;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbSliderValue;
-    private javax.swing.JRadioButton radioConLacNghich;
-    private javax.swing.JRadioButton radioConLacThuan;
-    private javax.swing.ButtonGroup radioGroup;
     // End of variables declaration//GEN-END:variables
     private OnFrameSubmitListener mListener;
 
