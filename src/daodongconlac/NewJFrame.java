@@ -18,6 +18,7 @@ public class NewJFrame extends javax.swing.JFrame {
     public void Stop() {
         timer.stop();
         jPanel1.Stop();
+
     }
 
     public NewJFrame() {
@@ -221,7 +222,10 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
-        Stop();        // TODO add your handling code here:
+
+        Stop();
+        time = 0;
+        jPanel1.N = 0;        // TODO add your handling code here:
     }//GEN-LAST:event_btnStopActionPerformed
 
     public static void main(String args[]) {

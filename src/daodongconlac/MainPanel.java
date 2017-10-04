@@ -60,7 +60,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
         T = 1.150;
         omega = 2 * Math.PI / T;
-        gamma = 0.005;
+        gamma = 0.001;
 
         t = 0;
         dt = 0.01;
@@ -74,8 +74,13 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             t += dt;
             oldAngle = angle;
             angle = angle0 * Math.pow(Math.E, -gamma * t) * Math.cos(omega * t);
-            if (oldAngle > 7.5 && angle <= 7.5) {
+            if (oldAngle > 7 && angle <= 7) {
                 N++;
+            }
+            if (N == 1) {
+                if (this.mListener != null) {
+                    this.mListener.OnFrameSubmit();
+                }
             }
             repaint();
 
@@ -143,9 +148,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     public void Start() {
         timerConLac.start();
         isRunning = true;
-        if (this.mListener != null) {
-            this.mListener.OnFrameSubmit();
-        }
+
     }
 
     public void Stop() {
@@ -171,7 +174,9 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     @Override
     public void mouseReleased(MouseEvent e) {
         if (mouseDragged) {
-            Start();
+            if (angle0 != 0) {
+                Start();
+            }
         }
     }
 
