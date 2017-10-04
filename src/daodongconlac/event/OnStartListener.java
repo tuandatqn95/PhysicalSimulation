@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daodongconlac;
+package daodongconlac.event;
 
 /**
  *
  * @author tuand
  */
-public interface OnFrameSubmitListener {
-    public void OnFrameSubmit();
+public interface OnStartListener {
+    public void OnStart();
 }

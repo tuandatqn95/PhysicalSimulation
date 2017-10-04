@@ -29,6 +29,7 @@ public class Properties {
     public static final double LVat = 1;
     public static final double LDaiOc = 1;
     public static double LBuLong = 0;
+    public static final double Gamma = 0.001;
 
     
     //Images
@@ -39,5 +40,6 @@ public class Properties {
     public static final String pathKhung = "images/khung.png";
     
     //Colors
+    
     public static final Color colorBackground = new Color(248,248,192);
 }

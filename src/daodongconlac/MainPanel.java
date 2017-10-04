@@ -5,6 +5,9 @@
  */
 package daodongconlac;
 
+import daodongconlac.event.OnFrameSubmitListener;
+import daodongconlac.event.OnStartListener;
+import daodongconlac.event.OnStopListener;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -28,13 +31,13 @@ import javax.swing.Timer;
  *
  * @author tuand
  */
-public final class MainPanel extends JPanel implements MouseListener, MouseMotionListener, OnFrameSubmitListener {
+public final class MainPanel extends JPanel implements MouseListener, MouseMotionListener {
 
     BufferedImage imgConLac, imgRen, imgObject, imgKhung;
 
     double T;
     Timer timerConLac;
-    double angle, angle0, oldAngle, gamma, omega;
+    double angle, angle0, oldAngle, omega;
     double dt, t;
     int intervalConLac;
     boolean isRotated, isRunning;
@@ -45,7 +48,8 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     int N;
     double time;
 
-    OnFrameSubmitListener mListener;
+    OnStartListener startListener;
+    OnStopListener stopListener;
 
     public MainPanel() {
         this.addMouseListener(this);
@@ -60,7 +64,6 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
         T = 1.150;
         omega = 2 * Math.PI / T;
-        gamma = 0.001;
 
         t = 0;
         dt = 0.01;
@@ -73,15 +76,23 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         timerConLac = new Timer(intervalConLac, (ActionEvent e) -> {
             t += dt;
             oldAngle = angle;
-            angle = angle0 * Math.pow(Math.E, -gamma * t) * Math.cos(omega * t);
+            angle = angle0 * Math.pow(Math.E, -Properties.Gamma * t) * Math.cos(omega * t);
+            if (Math.abs(oldAngle - angle) < 0.00001) {
+                Stop();
+            }
             if (oldAngle > 7 && angle <= 7) {
                 N++;
             }
             if (N == 1) {
-                if (this.mListener != null) {
-                    this.mListener.OnFrameSubmit();
+                if (this.startListener != null) {
+                    this.startListener.OnStart();
+                }
+            } else if (N == 51) {
+                if (this.stopListener != null) {
+                    this.stopListener.OnStop();
                 }
             }
+
             repaint();
 
         });
@@ -197,9 +208,9 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             mouseX_dragged = e.getX();
             mouseY_dragged = e.getY();
             mouseDragged = true;
-            double aaa = (200 - mouseX_dragged) / Math.sqrt((200 - mouseX_dragged) * (200 - mouseX_dragged)
-                    + (92 - mouseY_dragged) * (92 - mouseY_dragged));
-            angle = Math.toDegrees(aaa);
+
+            angle = Math.toDegrees((200 - mouseX_dragged) / Math.sqrt((200 - mouseX_dragged) * (200 - mouseX_dragged)
+                    + (92 - mouseY_dragged) * (92 - mouseY_dragged)));
             if (angle > 9) {
                 angle = 9;
             }
@@ -216,13 +227,11 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
     }
 
-    @Override
-    public void OnFrameSubmit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setOnStartListener(OnStartListener listener) {
+        this.startListener = listener;
     }
 
-    public void setOnFrameSubmitListener(OnFrameSubmitListener listener) {
-        this.mListener = listener;
+    public void setOnStopListener(OnStopListener listener) {
+        this.stopListener = listener;
     }
-
 }

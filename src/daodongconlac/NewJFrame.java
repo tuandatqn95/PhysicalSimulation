@@ -5,6 +5,9 @@
  */
 package daodongconlac;
 
+import daodongconlac.event.OnFrameSubmitListener;
+import daodongconlac.event.OnStartListener;
+import daodongconlac.event.OnStopListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -33,11 +36,19 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jPanel1 = new MainPanel();
 
-        jPanel1.setOnFrameSubmitListener(new OnFrameSubmitListener() {
+        jPanel1.setOnStartListener(new OnStartListener() {
             @Override
-            public void OnFrameSubmit() {
+            public void OnStart() {
                 Start();
             }
+        });
+
+        jPanel1.setOnStopListener(new OnStopListener() {
+            @Override
+            public void OnStop() {
+                Stop();
+            }
+
         });
 
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 700));
