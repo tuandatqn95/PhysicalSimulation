@@ -41,5 +41,5 @@ public class Properties {
     
     //Colors
     
-    public static final Color colorBackground = new Color(248,248,192);
+    public static final Color colorBackground = new Color(255,255,188);
 }

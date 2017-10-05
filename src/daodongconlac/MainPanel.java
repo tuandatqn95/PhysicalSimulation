@@ -22,6 +22,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javafx.scene.Cursor;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -59,7 +60,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         LoadImageChanged();
         isRotated = false;
         isRunning = false;
-        angle0 = 10;
+
         angle = 0;
 
         T = 1.150;
@@ -87,11 +88,8 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
                 if (this.startListener != null) {
                     this.startListener.OnStart();
                 }
-            } else if (N == 51) {
-                if (this.stopListener != null) {
-                    this.stopListener.OnStop();
-                }
             }
+//         
 
             repaint();
 
@@ -111,7 +109,6 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         } else {
             g.drawImage(rotate(imgObject, angle, 200, 92), 0, 20, null);
         }
-
     }
 
     public static BufferedImage rotate(BufferedImage bufferedImage, double angle, int x, int y) {
@@ -128,7 +125,6 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         bufferedImage = op.filter(bufferedImage, null);
         return bufferedImage;
-
     }
 
     public static BufferedImage mergeImage(BufferedImage image1, BufferedImage image2, int length) {
@@ -234,4 +230,12 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     public void setOnStopListener(OnStopListener listener) {
         this.stopListener = listener;
     }
+
+    public void UpdateOmega() {
+        
+    }
+
+  
+
+   
 }

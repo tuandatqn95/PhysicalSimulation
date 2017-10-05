@@ -21,7 +21,12 @@ public class NewJFrame extends javax.swing.JFrame {
     public void Stop() {
         timer.stop();
         jPanel1.Stop();
+        Reset();
+    }
 
+    public void Reset() {
+        time = 0;
+        jPanel1.N = 0;
     }
 
     public NewJFrame() {
@@ -32,6 +37,10 @@ public class NewJFrame extends javax.swing.JFrame {
             time += 0.01;
             tbTime.setText(String.format("%.2f", time));
             tbN.setText(String.valueOf(jPanel1.N));
+            if (jPanel1.N == 51) {
+                Stop();
+
+            }
         });
 
         jPanel1 = new MainPanel();
@@ -95,6 +104,7 @@ public class NewJFrame extends javax.swing.JFrame {
         btnStop = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Con lac thuan nghich");
         setBackground(new java.awt.Color(248, 248, 192));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -102,7 +112,7 @@ public class NewJFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(600, 700));
         setSize(new java.awt.Dimension(600, 700));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 188));
         jPanel2.setPreferredSize(new java.awt.Dimension(180, 660));
 
         tbN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -225,8 +235,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSwitchActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        time = 0;
-        jPanel1.N = 0;
+        Reset();
         tbN.setText(String.valueOf(jPanel1.N));
         tbTime.setText(String.valueOf(time));
         // TODO add your handling code here:
@@ -235,8 +244,6 @@ public class NewJFrame extends javax.swing.JFrame {
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
 
         Stop();
-        time = 0;
-        jPanel1.N = 0;        // TODO add your handling code here:
     }//GEN-LAST:event_btnStopActionPerformed
 
     public static void main(String args[]) {
