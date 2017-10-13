@@ -52,9 +52,14 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     OnStartListener startListener;
     OnStopListener stopListener;
 
+    GraphFrame graphFrame;
+
     public MainPanel() {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+
+        graphFrame = new GraphFrame();
+        graphFrame.setVisible(true);
 
         LoadImage();
         LoadImageChanged();
@@ -75,9 +80,12 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
         //Timer
         timerConLac = new Timer(intervalConLac, (ActionEvent e) -> {
+           
             t += dt;
             oldAngle = angle;
             angle = angle0 * Math.pow(Math.E, -Properties.Gamma * t) * Math.cos(omega * t);
+           
+             graphFrame.jPanel1.UpdateValue(t, -angle);
             if (Math.abs(oldAngle - angle) < 0.00001) {
                 Stop();
             }
@@ -87,9 +95,9 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             if (N == 1) {
                 if (this.startListener != null) {
                     this.startListener.OnStart();
+
                 }
             }
-//         
 
             repaint();
 
@@ -153,6 +161,8 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     }
 
     public void Start() {
+
+        
         timerConLac.start();
         isRunning = true;
 
@@ -207,13 +217,15 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
             angle = Math.toDegrees((200 - mouseX_dragged) / Math.sqrt((200 - mouseX_dragged) * (200 - mouseX_dragged)
                     + (92 - mouseY_dragged) * (92 - mouseY_dragged)));
-            if (angle > 9) {
-                angle = 9;
+            if (angle > 90) {
+                angle = 90;
             }
-            if (angle < -9) {
-                angle = -9;
+            if (angle < -90) {
+                angle = -90;
             }
             angle0 = angle;
+            graphFrame.jPanel1.setAngle0(angle);
+          
             repaint();
         }
     }
@@ -231,11 +243,4 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         this.stopListener = listener;
     }
 
-    public void UpdateOmega() {
-        
-    }
-
-  
-
-   
 }
