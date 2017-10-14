@@ -224,7 +224,6 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             }
             angle0 = angle;
             graphFrame.jPanel1.setAngle0(angle);
-            System.out.println(String.valueOf(angle));
             repaint();
         }
     }
