@@ -37,7 +37,7 @@ public class Properties {
     public static final String pathConLacNamNgang = "images/conlacngang.png";
     public static final String pathRenNgang = "images/renngang.png";
     public static final String pathRenDung = "images/rendung.png";
-    public static final String pathKhung = "images/khung.png";
+    public static final String pathKhung = "images/khung2.png";
     
     //Colors
     

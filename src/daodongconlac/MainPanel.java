@@ -80,12 +80,12 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
         //Timer
         timerConLac = new Timer(intervalConLac, (ActionEvent e) -> {
-           
+
             t += dt;
             oldAngle = angle;
             angle = angle0 * Math.pow(Math.E, -Properties.Gamma * t) * Math.cos(omega * t);
-           
-             graphFrame.jPanel1.UpdateValue(t, -angle);
+
+            graphFrame.jPanel1.UpdateValue(t, -angle);
             if (Math.abs(oldAngle - angle) < 0.00001) {
                 Stop();
             }
@@ -162,7 +162,6 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
     public void Start() {
 
-        
         timerConLac.start();
         isRunning = true;
 
@@ -225,7 +224,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             }
             angle0 = angle;
             graphFrame.jPanel1.setAngle0(angle);
-          
+            System.out.println(String.valueOf(angle));
             repaint();
         }
     }
