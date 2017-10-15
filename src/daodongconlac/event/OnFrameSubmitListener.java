@@ -10,5 +10,5 @@ package daodongconlac.event;
  * @author tuand
  */
 public interface OnFrameSubmitListener {
-    public void OnFrameSubmit();
+    public void OnFrameSubmit(int a);
 }

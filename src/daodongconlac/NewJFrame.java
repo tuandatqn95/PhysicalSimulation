@@ -219,9 +219,10 @@ public class NewJFrame extends javax.swing.JFrame {
         frameCustomize.setVisible(true);
         frameCustomize.setOnFrameSubmitListener(new OnFrameSubmitListener() {
             @Override
-            public void OnFrameSubmit() {
+            public void OnFrameSubmit(int a) {
                 jPanel1.Stop();
                 jPanel1.LoadImageChanged();
+                jPanel1.UpdateOmega(a);
             }
         });
     }//GEN-LAST:event_btnCustomizeActionPerformed

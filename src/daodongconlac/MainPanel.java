@@ -241,4 +241,9 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         this.stopListener = listener;
     }
 
+    public void UpdateOmega(int a)
+    {
+        //Code update Omega, T here
+        // a (mm)
+    }
 }

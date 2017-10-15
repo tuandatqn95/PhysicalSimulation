@@ -131,7 +131,7 @@ public class DieuChinhConLac extends javax.swing.JFrame {
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         Properties.LBuLong = JSlider.getValue();
         if(this.mListener!=null){
-            this.mListener.OnFrameSubmit();
+            this.mListener.OnFrameSubmit(JSlider.getValue());
         }
         this.dispose();
     }//GEN-LAST:event_btnOkActionPerformed
