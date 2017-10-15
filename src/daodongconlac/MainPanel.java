@@ -9,6 +9,7 @@ import daodongconlac.event.OnFrameSubmitListener;
 import daodongconlac.event.OnStartListener;
 import daodongconlac.event.OnStopListener;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -18,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Arc2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -108,6 +110,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     @Override
     public void paintComponent(Graphics gg) {
         super.paintComponent(gg);
+
         setBackground(Properties.colorBackground);
         Graphics2D g = (Graphics2D) gg;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -116,6 +119,14 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             g.drawImage(rotate(rotate180(imgObject), angle, 200, 92), 0, 20, null);
         } else {
             g.drawImage(rotate(imgObject, angle, 200, 92), 0, 20, null);
+        }
+
+        if (mouseDragged == true) {
+            g.setColor(Color.ORANGE);
+            g.setFont(new Font("Comic Sans MS", Font.ITALIC, 16));
+            Arc2D arc = new Arc2D.Double(100, 12, 200, 200, -90, -angle, Arc2D.PIE);
+            g.fill(arc);
+            g.drawString(String.format("%1$,.2f", -angle), (angle < 0) ? 155 : 205, 180);
         }
     }
 
@@ -193,6 +204,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             if (angle0 != 0) {
                 Start();
             }
+            mouseDragged = false;
         }
     }
 
@@ -241,8 +253,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         this.stopListener = listener;
     }
 
-    public void UpdateOmega(int a)
-    {
+    public void UpdateOmega(int a) {
         //Code update Omega, T here
         // a (mm)
     }
