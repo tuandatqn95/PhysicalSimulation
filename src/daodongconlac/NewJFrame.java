@@ -5,21 +5,14 @@
  */
 package daodongconlac;
 
-import daodongconlac.event.OnFrameSubmitListener;
-import daodongconlac.event.OnStartListener;
-import daodongconlac.event.OnStopListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Timer;
+import daodongconlac.event.TimerListener;
 
 public class NewJFrame extends javax.swing.JFrame {
 
-    public void Start() {
-        timer.start();
-    }
+    double time;
 
     public void Stop() {
-        timer.stop();
+
         jPanel1.Stop();
         Reset();
     }
@@ -33,29 +26,29 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
 
         time = 0.0;
-        timer = new Timer(10, (ActionEvent e) -> {
-            time += 0.01;
-            tbTime.setText(String.format("%.2f", time));
-            tbN.setText(String.valueOf(jPanel1.N));
-            if (jPanel1.N == 51) {
-                Stop();
-
-            }
-        });
 
         jPanel1 = new MainPanel();
 
-        jPanel1.setOnStartListener(new OnStartListener() {
+        jPanel1.setOnTimerListener(new TimerListener() {
             @Override
             public void OnStart() {
-                Start();
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
-        });
 
-        jPanel1.setOnStopListener(new OnStopListener() {
             @Override
             public void OnStop() {
-                Stop();
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void OnTick() {
+
+                tbTime.setText(String.format("%.2f", jPanel1.time));
+                tbN.setText(String.valueOf(jPanel1.N));
+                if (jPanel1.N == 51) {
+                    Stop();
+
+                }
             }
 
         });
@@ -217,13 +210,10 @@ public class NewJFrame extends javax.swing.JFrame {
     private void btnCustomizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomizeActionPerformed
         DieuChinhConLac frameCustomize = new DieuChinhConLac();
         frameCustomize.setVisible(true);
-        frameCustomize.setOnFrameSubmitListener(new OnFrameSubmitListener() {
-            @Override
-            public void OnFrameSubmit(int a) {
-                jPanel1.Stop();
-                jPanel1.LoadImageChanged();
-                jPanel1.UpdateOmega(a);
-            }
+        frameCustomize.setOnFrameSubmitListener((int a) -> {
+            jPanel1.Stop();
+            jPanel1.LoadImageChanged();
+            jPanel1.UpdateA(a);
         });
     }//GEN-LAST:event_btnCustomizeActionPerformed
 
@@ -232,6 +222,7 @@ public class NewJFrame extends javax.swing.JFrame {
             return;
         }
         Properties.isRotated = !Properties.isRotated;
+        jPanel1.UpdateOmega();
         jPanel1.repaint();
     }//GEN-LAST:event_btnSwitchActionPerformed
 
@@ -291,9 +282,5 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField tbTime;
     // End of variables declaration//GEN-END:variables
     private MainPanel jPanel1;
-
-    private Timer timer;
-
-    double time;
 
 }

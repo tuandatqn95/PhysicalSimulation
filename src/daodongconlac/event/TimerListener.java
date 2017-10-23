@@ -9,6 +9,8 @@ package daodongconlac.event;
  *
  * @author tuand
  */
-public interface OnStartListener {
+public interface TimerListener {
     public void OnStart();
+    public void OnStop();
+    public void OnTick();
 }

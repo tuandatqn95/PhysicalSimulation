@@ -5,8 +5,7 @@
  */
 package daodongconlac;
 
-import static daodongconlac.MainPanel.rotate;
-import static daodongconlac.MainPanel.rotate180;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -81,11 +80,10 @@ public class GraphPanel extends JPanel {
     }
 
     public void UpdateValue(double t, double angle) {
+        
         this.t = t;
         this.angle = angle;
-        if (t > 15) {
-            return;
-        }
+       
         repaint();
     }
 

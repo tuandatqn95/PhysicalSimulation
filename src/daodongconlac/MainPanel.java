@@ -5,16 +5,13 @@
  */
 package daodongconlac;
 
-import daodongconlac.event.OnFrameSubmitListener;
-import daodongconlac.event.OnStartListener;
-import daodongconlac.event.OnStopListener;
+import daodongconlac.event.TimerListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -24,9 +21,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javafx.scene.Cursor;
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -40,7 +35,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
     double T;
     Timer timerConLac;
-    double angle, angle0, oldAngle, omega;
+    double angle, angle0, oldAngle, omega, a;
     double dt, t;
     int intervalConLac;
     boolean isRotated, isRunning;
@@ -51,8 +46,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     int N;
     double time;
 
-    OnStartListener startListener;
-    OnStopListener stopListener;
+    TimerListener timerListener;
 
     GraphFrame graphFrame;
 
@@ -69,9 +63,8 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         isRunning = false;
 
         angle = 0;
-
-        T = 1.150;
-        omega = 2 * Math.PI / T;
+        a = 0;
+        UpdateOmega();
 
         t = 0;
         dt = 0.01;
@@ -87,21 +80,24 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             oldAngle = angle;
             angle = angle0 * Math.pow(Math.E, -Properties.Gamma * t) * Math.cos(omega * t);
 
-            graphFrame.jPanel1.UpdateValue(t, -angle);
-            if (Math.abs(oldAngle - angle) < 0.00001) {
-                Stop();
-            }
+//            if (oldAngle - angle < 0.00001 && oldAngle - angle > -0.00001) {
+//                Stop();
+//            }
             if (oldAngle > 7 && angle <= 7) {
                 N++;
             }
-            if (N == 1) {
-                if (this.startListener != null) {
-                    this.startListener.OnStart();
-
-                }
-            }
 
             repaint();
+            if (t < 15) {
+                graphFrame.jPanel1.UpdateValue(t, -angle);
+            }
+            if (N >= 1) {
+
+                time += dt;
+                if (this.timerListener != null) {
+                    this.timerListener.OnTick();
+                }
+            }
 
         });
 
@@ -205,6 +201,8 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
                 Start();
             }
             mouseDragged = false;
+            t = 0;
+            time = 0;
         }
     }
 
@@ -245,16 +243,21 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
     }
 
-    public void setOnStartListener(OnStartListener listener) {
-        this.startListener = listener;
+    public void setOnTimerListener(TimerListener listener) {
+        this.timerListener = listener;
     }
 
-    public void setOnStopListener(OnStopListener listener) {
-        this.stopListener = listener;
+    public void UpdateA(int a) {
+        this.a = a;
+        UpdateOmega();
     }
 
-    public void UpdateOmega(int a) {
-        //Code update Omega, T here
-        // a (mm)
+    public void UpdateOmega() {
+        if (Properties.isRotated) {
+            T = (1.7025 * a + 1.6813 * (50 - a)) / 50;
+        } else {
+            T = (1.6938 * a + 1.6890 * (50 - a)) / 50;
+        }
+        omega = 2 * Math.PI / T;
     }
 }
