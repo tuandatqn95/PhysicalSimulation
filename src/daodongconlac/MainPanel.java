@@ -79,6 +79,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             t += dt;
             oldAngle = angle;
             angle = angle0 * Math.pow(Math.E, -Properties.Gamma * t) * Math.cos(omega * t);
+            
 
 //            if (oldAngle - angle < 0.00001 && oldAngle - angle > -0.00001) {
 //                Stop();
@@ -92,7 +93,6 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
                 graphFrame.jPanel1.UpdateValue(t, -angle);
             }
             if (N >= 1) {
-
                 time += dt;
                 if (this.timerListener != null) {
                     this.timerListener.OnTick();
@@ -113,8 +113,22 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         g.drawImage(imgKhung, 45, 100, null);
         if (Properties.isRotated) {
             g.drawImage(rotate(rotate180(imgObject), angle, 200, 92), 0, 20, null);
+            //g.drawOval((int)(200 + 50*Math.cos(Math.toRadians(angle))), (int)(92 + 50*Math.sin(Math.toRadians(angle))), 50, 10);
         } else {
             g.drawImage(rotate(imgObject, angle, 200, 92), 0, 20, null);
+            int x_g =(int)(197 - 300 * Math.sin(Math.toRadians(angle)));
+            int y_g =(int)(110 + 300 * Math.cos(Math.toRadians(angle)));
+            g.setColor(Color.RED);
+            for (int temp = 0;temp<50;temp++)
+            {
+                g.drawLine(x_g,y_g+temp,x_g+5,y_g+temp);
+            }
+            for (int temp = 0;temp<11;temp++)
+            {
+                g.drawLine(x_g -7+temp, y_g+temp+50, x_g+13-temp, y_g+50+temp);
+            }
+            
+                 
         }
 
         if (mouseDragged == true) {
