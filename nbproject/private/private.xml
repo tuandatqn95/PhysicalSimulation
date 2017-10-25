@@ -3,16 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/PhysicalSimulation/DaoDongConLac/src/daodongconlac/NewJFrame.java</file>
-            <file>file:/D:/Documents/PhysicalSimulation/DaoDongConLac/src/daodongconlac/MainPanel.java</file>
-            <file>file:/D:/Documents/PhysicalSimulation/DaoDongConLac/src/daodongconlac/Properties.java</file>
-            <file>file:/D:/Documents/PhysicalSimulation/DaoDongConLac/src/daodongconlac/event/OnFrameSubmitListener.java</file>
-            <file>file:/D:/Documents/PhysicalSimulation/DaoDongConLac/src/daodongconlac/GraphFrame.java</file>
-            <file>file:/D:/Documents/PhysicalSimulation/DaoDongConLac/src/daodongconlac/CustomizePanel.java</file>
-            <file>file:/D:/Documents/PhysicalSimulation/DaoDongConLac/src/daodongconlac/event/OnStopListener.java</file>
-            <file>file:/D:/Documents/PhysicalSimulation/DaoDongConLac/src/daodongconlac/DieuChinhConLac.java</file>
-            <file>file:/D:/Documents/PhysicalSimulation/DaoDongConLac/src/daodongconlac/GraphPanel.java</file>
-            <file>file:/D:/Documents/PhysicalSimulation/DaoDongConLac/src/daodongconlac/event/OnStartListener.java</file>
+            <file>file:/D:/vatly/src/daodongconlac/MainPanel.java</file>
+            <file>file:/D:/vatly/src/daodongconlac/NewJFrame.java</file>
+            <file>file:/D:/vatly/src/daodongconlac/GraphPanel.java</file>
         </group>
     </open-files>
 </project-private>
