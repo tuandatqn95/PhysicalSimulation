@@ -92,7 +92,6 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
                 graphFrame.jPanel1.UpdateValue(t, -angle);
             }
             if (N >= 1) {
-
                 time += dt;
                 if (this.timerListener != null) {
                     this.timerListener.OnTick();
@@ -113,8 +112,19 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         g.drawImage(imgKhung, 45, 100, null);
         if (Properties.isRotated) {
             g.drawImage(rotate(rotate180(imgObject), angle, 200, 92), 0, 20, null);
+            //g.drawOval((int)(200 + 50*Math.cos(Math.toRadians(angle))), (int)(92 + 50*Math.sin(Math.toRadians(angle))), 50, 10);
         } else {
             g.drawImage(rotate(imgObject, angle, 200, 92), 0, 20, null);
+            int x_g = (int) (200 - 200 * Math.sin(Math.toRadians(angle)));
+            int y_g = (int) (110 + 200 * Math.cos(Math.toRadians(angle)));
+            g.setColor(Color.RED);
+            for (int temp = -1; temp <= 1; temp++) {
+                g.drawLine(x_g, y_g, x_g + temp, y_g + 100);
+            }
+            for (int temp = -7; temp <= 7; temp++) {
+                g.drawLine(x_g + temp, y_g + 100, x_g, y_g + 120);
+            }
+
         }
 
         if (mouseDragged == true) {
@@ -155,9 +165,9 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     void LoadImage() {
         //Lay anh con lac
         try {
-            imgConLac = ImageIO.read(new File(Properties.pathConLac));
-            imgRen = ImageIO.read(new File(Properties.pathRenDung));
-            imgKhung = ImageIO.read(new File(Properties.pathKhung));
+            imgConLac = ImageIO.read(getClass().getClassLoader().getResource(Properties.pathConLac));
+            imgRen = ImageIO.read(getClass().getClassLoader().getResource(Properties.pathRenDung));
+            imgKhung = ImageIO.read(getClass().getClassLoader().getResource(Properties.pathKhung));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -254,9 +264,9 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
     public void UpdateOmega() {
         if (Properties.isRotated) {
-            T = (1.7025 * a + 1.6813 * (50 - a)) / 50;
+            T = (1.7030 * a + 1.6816 * (50 - a)) / 50;
         } else {
-            T = (1.6938 * a + 1.6890 * (50 - a)) / 50;
+            T = (1.6940 * a + 1.6893 * (50 - a)) / 50;
         }
         omega = 2 * Math.PI / T;
     }

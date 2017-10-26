@@ -50,16 +50,12 @@ public final class CustomizePanel extends JPanel implements MouseListener, Mouse
 
     void LoadImage() {
         try {
-            File input = new File(Properties.pathConLacNamNgang);
-            imgConLac = ImageIO.read(input);
-            input = new File(Properties.pathRenNgang);
-            imgRen = ImageIO.read(input);
+            imgConLac = ImageIO.read(getClass().getClassLoader().getResource(Properties.pathConLacNamNgang));
+            imgRen = ImageIO.read(getClass().getClassLoader().getResource(Properties.pathRenNgang));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
-    
-   
 
     @Override
     public void mouseClicked(MouseEvent e) {

@@ -33,11 +33,11 @@ public class Properties {
 
     
     //Images
-    public static final String pathConLac = "images/conlac.png";
-    public static final String pathConLacNamNgang = "images/conlacngang.png";
-    public static final String pathRenNgang = "images/renngang.png";
-    public static final String pathRenDung = "images/rendung.png";
-    public static final String pathKhung = "images/khung2.png";
+    public static final String pathConLac = "daodongconlac/images/conlac.png";
+    public static final String pathConLacNamNgang = "daodongconlac/images/conlacngang.png";
+    public static final String pathRenNgang = "daodongconlac/images/renngang.png";
+    public static final String pathRenDung = "daodongconlac/images/rendung.png";
+    public static final String pathKhung = "daodongconlac/images/khung2.png";
     
     //Colors
     
