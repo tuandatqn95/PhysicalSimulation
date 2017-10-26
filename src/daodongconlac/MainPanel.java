@@ -91,7 +91,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
             repaint();
             if (t < 15) {
-                graphFrame.jPanel1.UpdateValue(t, -angle);
+                graphFrame.jPanel1.UpdateValue(t, angle);
             }
             if (N >= 1) {
                 time += dt;
@@ -114,14 +114,16 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         g.drawImage(imgKhung, 45, 100, null);
         if (Properties.isRotated) {
             g.drawImage(rotate(rotate180(imgObject), angle, 200, 92), 0, 20, null);
-            //g.drawOval((int)(200 + 50*Math.cos(Math.toRadians(angle))), (int)(92 + 50*Math.sin(Math.toRadians(angle))), 50, 10);
         } else {
             g.drawImage(rotate(imgObject, angle, 200, 92), 0, 20, null);
         }
 
         int x_g = (int) (200 - OG * Math.sin(Math.toRadians(angle)));
-        int y_g = (int) (110 + OG * Math.cos(Math.toRadians(angle)));
+        int y_g = (int) (112 + OG * Math.cos(Math.toRadians(angle)));
+        
+        
         g.setColor(Color.RED);
+        g.fillOval(x_g-3, y_g-3, 6, 6);
         for (int temp = -1; temp <= 1; temp++) {
             g.drawLine(x_g, y_g, x_g + temp, y_g + 100);
         }
@@ -267,11 +269,11 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     public void UpdateOmega() {
         if (Properties.isRotated) {
             T = (1.7030 * a + 1.6816 * (50 - a)) / 50;
+            OG = 113;
         } else {
             T = (1.6940 * a + 1.6893 * (50 - a)) / 50;
+            OG = 247;
         }
         omega = 2 * Math.PI / T;
-        OG = 360 - OG;
-        System.out.println(OG);
     }
 }

@@ -65,7 +65,7 @@ public class GraphPanel extends JPanel {
         }
 
         for (int i = -3; i <= 3; i++) {
-            g.drawString(String.format("%1$,.2f", i * angle0 / 3), basex - 40, i * 40 + 175);
+            g.drawString(String.format("%1$,.2f", -i * angle0 / 3), basex - 40, i * 40 + 175);
         }
 
         //Draw graph
