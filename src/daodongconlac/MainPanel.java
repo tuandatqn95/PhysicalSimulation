@@ -39,6 +39,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
     double dt, t;
     int intervalConLac;
     boolean isRotated, isRunning;
+    int OG;
 
     int mouseX, mouseY, mouseX_dragged, mouseY_dragged;
     boolean mouseDragged;
@@ -65,6 +66,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         angle = 0;
         a = 0;
         UpdateOmega();
+        OG = 247;
 
         t = 0;
         dt = 0.01;
@@ -115,16 +117,16 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             //g.drawOval((int)(200 + 50*Math.cos(Math.toRadians(angle))), (int)(92 + 50*Math.sin(Math.toRadians(angle))), 50, 10);
         } else {
             g.drawImage(rotate(imgObject, angle, 200, 92), 0, 20, null);
-            int x_g = (int) (200 - 200 * Math.sin(Math.toRadians(angle)));
-            int y_g = (int) (110 + 200 * Math.cos(Math.toRadians(angle)));
-            g.setColor(Color.RED);
-            for (int temp = -1; temp <= 1; temp++) {
-                g.drawLine(x_g, y_g, x_g + temp, y_g + 100);
-            }
-            for (int temp = -7; temp <= 7; temp++) {
-                g.drawLine(x_g + temp, y_g + 100, x_g, y_g + 120);
-            }
+        }
 
+        int x_g = (int) (200 - OG * Math.sin(Math.toRadians(angle)));
+        int y_g = (int) (110 + OG * Math.cos(Math.toRadians(angle)));
+        g.setColor(Color.RED);
+        for (int temp = -1; temp <= 1; temp++) {
+            g.drawLine(x_g, y_g, x_g + temp, y_g + 100);
+        }
+        for (int temp = -7; temp <= 7; temp++) {
+            g.drawLine(x_g + temp, y_g + 100, x_g, y_g + 120);
         }
 
         if (mouseDragged == true) {
@@ -269,5 +271,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             T = (1.6940 * a + 1.6893 * (50 - a)) / 50;
         }
         omega = 2 * Math.PI / T;
+        OG = 360 - OG;
+        System.out.println(OG);
     }
 }
