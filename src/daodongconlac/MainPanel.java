@@ -81,18 +81,18 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             t += dt;
             oldAngle = angle;
             angle = angle0 * Math.pow(Math.E, -Properties.Gamma * t) * Math.cos(omega * t);
-
+            if (t < 15) {
+                graphFrame.jPanel1.UpdateValue(t, angle);
+            }
 //            if (oldAngle - angle < 0.00001 && oldAngle - angle > -0.00001) {
 //                Stop();
 //            }
-            if (oldAngle > 7 && angle <= 7) {
+            if (oldAngle < -7 && angle >= -7) {
                 N++;
             }
 
             repaint();
-            if (t < 15) {
-                graphFrame.jPanel1.UpdateValue(t, angle);
-            }
+
             if (N >= 1) {
                 time += dt;
                 if (this.timerListener != null) {
@@ -112,18 +112,16 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         Graphics2D g = (Graphics2D) gg;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.drawImage(imgKhung, 45, 100, null);
-        if (Properties.isRotated) {
-            g.drawImage(rotate(rotate180(imgObject), angle, 200, 92), 0, 20, null);
-        } else {
-            g.drawImage(rotate(imgObject, angle, 200, 92), 0, 20, null);
-        }
+        AffineTransform at = AffineTransform.getTranslateInstance(183, 20);
+        at.rotate(Math.toRadians(-angle), 17, 92);
 
-        int x_g = (int) (200 - OG * Math.sin(Math.toRadians(angle)));
+        g.drawImage(imgObject, at, null);
+
+        int x_g = (int) (200 + OG * Math.sin(Math.toRadians(angle)));
         int y_g = (int) (112 + OG * Math.cos(Math.toRadians(angle)));
-        
-        
+
         g.setColor(Color.RED);
-        g.fillOval(x_g-3, y_g-3, 6, 6);
+        g.fillOval(x_g - 3, y_g - 3, 6, 6);
         for (int temp = -1; temp <= 1; temp++) {
             g.drawLine(x_g, y_g, x_g + temp, y_g + 100);
         }
@@ -134,9 +132,9 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         if (mouseDragged == true) {
             g.setColor(Color.ORANGE);
             g.setFont(new Font("Comic Sans MS", Font.ITALIC, 16));
-            Arc2D arc = new Arc2D.Double(100, 12, 200, 200, -90, -angle, Arc2D.PIE);
+            Arc2D arc = new Arc2D.Double(100, 12, 200, 200, -90, angle, Arc2D.PIE);
             g.fill(arc);
-            g.drawString(String.format("%1$,.2f", -angle), (angle < 0) ? 155 : 205, 180);
+            g.drawString(String.format("%1$,.2f", angle), (angle > 0) ? 155 : 205, 180);
         }
     }
 
@@ -162,7 +160,7 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
         BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = bufferedImage.createGraphics();
         g2.drawImage(image1, null, 0, 0);
-        g2.drawImage(image2, null, 183, 508 + length);
+        g2.drawImage(image2, null, 0, 508 + length);
         return bufferedImage;
     }
 
@@ -179,6 +177,9 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
 
     public void LoadImageChanged() {
         imgObject = mergeImage(imgConLac, imgRen, (int) (Properties.LBuLong * 0.4));
+        if (Properties.isRotated) {
+            imgObject = rotate180(imgObject);
+        }
     }
 
     public void Start() {
@@ -238,13 +239,20 @@ public final class MainPanel extends JPanel implements MouseListener, MouseMotio
             mouseY_dragged = e.getY();
             mouseDragged = true;
 
-            angle = Math.toDegrees((200 - mouseX_dragged) / Math.sqrt((200 - mouseX_dragged) * (200 - mouseX_dragged)
-                    + (92 - mouseY_dragged) * (92 - mouseY_dragged)));
-            if (angle > 90) {
-                angle = 90;
-            }
-            if (angle < -90) {
-                angle = -90;
+            double radian = Math.asin((mouseX_dragged - 200) / Math.sqrt(
+                    (200 - mouseX_dragged) * (200 - mouseX_dragged)
+                    + (112 - mouseY_dragged) * (112 - mouseY_dragged)
+            ));
+            angle = Math.toDegrees(radian
+            );
+            System.out.println(radian);
+            if (mouseY_dragged <= 112) {
+                if (mouseX_dragged < 200) {
+                    angle = -90;
+                } else {
+                    angle = 90;
+                }
+
             }
             angle0 = angle;
             graphFrame.jPanel1.setAngle0(angle);

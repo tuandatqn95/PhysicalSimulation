@@ -65,7 +65,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Graph");
-        setLocation(new java.awt.Point(600, 50));
+        setLocation(new java.awt.Point(500, 200));
         setPreferredSize(new java.awt.Dimension(850, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

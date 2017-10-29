@@ -42,7 +42,7 @@ public class GraphPanel extends JPanel {
         g.fillRect(basex, basey, 750, 240);
 
         x = (int) (t * 50 + basex);
-        y = (int) (angle * 120 / angle0 + 170);
+        y = (int) (-angle * 120 / angle0 + 170);
 
         listPoint.add(new Point(x, y));
         g.setColor(Color.LIGHT_GRAY);

@@ -42,9 +42,9 @@ public class NewJFrame extends javax.swing.JFrame {
 
             @Override
             public void OnTick() {
-
-                tbTime.setText(String.format("%.2f", jPanel1.time));
-                tbN.setText(String.valueOf(jPanel1.N));
+                 
+                lbTimeValue.setText(String.format("%.2f", jPanel1.time));
+                lbNValue.setText(String.valueOf(jPanel1.N));
                 if (jPanel1.N == 51) {
                     Stop();
 
@@ -87,14 +87,14 @@ public class NewJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        tbN = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        tbTime = new javax.swing.JTextField();
         btnCustomize = new javax.swing.JButton();
         btnSwitch = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
+        lbNValue = new javax.swing.JLabel();
+        lbTimeValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Con lac thuan nghich");
@@ -102,22 +102,17 @@ public class NewJFrame extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(java.awt.Color.white);
-        setSize(new java.awt.Dimension(600, 700));
+        setSize(new java.awt.Dimension(450, 700));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 188));
         jPanel2.setPreferredSize(new java.awt.Dimension(180, 660));
 
-        tbN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tbN.setText("0.0");
-
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("N:");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Time (s):");
-
-        tbTime.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tbTime.setText("00.00");
-        tbTime.setPreferredSize(new java.awt.Dimension(22, 20));
 
         btnCustomize.setText("Customize");
         btnCustomize.setPreferredSize(new java.awt.Dimension(100, 23));
@@ -149,56 +144,72 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
+        lbNValue.setBackground(new java.awt.Color(255, 255, 255));
+        lbNValue.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbNValue.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbNValue.setText("0");
+
+        lbTimeValue.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbTimeValue.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbTimeValue.setText("00.00");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSwitch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCustomize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(tbTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tbN)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                    .addComponent(btnCustomize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnSwitch, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbTimeValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbNValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lbNValue))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbTime, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lbTimeValue))
+                .addGap(49, 49, 49)
                 .addComponent(btnReset)
                 .addGap(18, 18, 18)
                 .addComponent(btnStop)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 384, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 351, Short.MAX_VALUE)
                 .addComponent(btnCustomize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSwitch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
 
+        lbNValue.getAccessibleContext().setAccessibleName("lbNValue");
+        lbTimeValue.getAccessibleContext().setAccessibleName("lbTimeValue");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 402, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 403, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
         );
 
         pack();
@@ -215,18 +226,19 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCustomizeActionPerformed
 
     private void btnSwitchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwitchActionPerformed
-        if (jPanel1.isRunning) {
-            return;
-        }
+//        if (jPanel1.isRunning) {
+//            return;
+//        }
         Properties.isRotated = !Properties.isRotated;
+        jPanel1.LoadImageChanged();
         jPanel1.UpdateOmega();
         jPanel1.repaint();
     }//GEN-LAST:event_btnSwitchActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         Reset();
-        tbN.setText(String.valueOf(jPanel1.N));
-        tbTime.setText(String.valueOf(time));
+        lbNValue.setText(String.valueOf(jPanel1.N));
+        lbTimeValue.setText(String.valueOf(time));
         // TODO add your handling code here:
     }//GEN-LAST:event_btnResetActionPerformed
 
@@ -275,8 +287,8 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField tbN;
-    private javax.swing.JTextField tbTime;
+    private javax.swing.JLabel lbNValue;
+    private javax.swing.JLabel lbTimeValue;
     // End of variables declaration//GEN-END:variables
     private MainPanel jPanel1;
 
