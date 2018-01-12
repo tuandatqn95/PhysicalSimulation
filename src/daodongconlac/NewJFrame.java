@@ -95,6 +95,7 @@ public class NewJFrame extends javax.swing.JFrame {
         btnStop = new javax.swing.JButton();
         lbNValue = new javax.swing.JLabel();
         lbTimeValue = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Con lac thuan nghich");
@@ -153,6 +154,13 @@ public class NewJFrame extends javax.swing.JFrame {
         lbTimeValue.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbTimeValue.setText("00.00");
 
+        jButton1.setLabel("?");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -173,11 +181,15 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addComponent(lbTimeValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbNValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addComponent(jButton1)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lbNValue))
@@ -198,6 +210,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         lbNValue.getAccessibleContext().setAccessibleName("lbNValue");
         lbTimeValue.getAccessibleContext().setAccessibleName("lbTimeValue");
+        jButton1.getAccessibleContext().setAccessibleName("infobtn");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -247,6 +260,12 @@ public class NewJFrame extends javax.swing.JFrame {
         Stop();
     }//GEN-LAST:event_btnStopActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         InfoFrame info = new InfoFrame();
+         info.show();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -284,6 +303,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnStop;
     private javax.swing.JButton btnSwitch;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
